@@ -7,8 +7,7 @@ private data class Equation(
 
 fun main() {
     fun part1(input: List<String>): Int {
-        val equations = input.parse()
-        return input.size
+        return input.parse().filter { it.isValid() }.sumOf { it.result }
     }
 
     fun part2(input: List<String>): Int {
@@ -28,4 +27,8 @@ private fun List<String>.parse(): List<Equation> = this.map {
     val parts = it.split(":")
     val numbers = parts[1].split(" ")
     Equation(result = parts[0].trim().toInt(), numbers.filter { it.isNotBlank() }.map { it.trim().toInt() })
+}
+
+private fun Equation.isValid(): Boolean {
+
 }
