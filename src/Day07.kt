@@ -11,17 +11,15 @@ fun main() {
     }
 
     fun part2(input: List<String>): Long {
-        return input.parse().filter { it.isValid() }.sumOf { it.result }
+        return input.parse().filter { it.isValid(true) }.sumOf { it.result }
     }
 
     val testInput = readInput("Day${DAY.toDayString()}_test")
-    println(part1(testInput))
     check(part1(testInput) == 3749L)
 
     val input = readInput("Day${DAY.toDayString()}")
     check(part1(input) == 28730327770375L)
     part1(input).println()
-    println(part2(testInput))
     check(part2(testInput) == 11387L)
     part2(input).println()
 }
@@ -32,15 +30,16 @@ private fun List<String>.parse(): List<Equation> = this.map {
     Equation(result = parts[0].trim().toLong(), numbers.filter { it.isNotBlank() }.map { it.trim().toLong() })
 }
 
-private fun Equation.isValid(): Boolean = isValidRec(0, this.numbers[0])
+private fun Equation.isValid(useConcat: Boolean = false): Boolean = isValidRec(0, this.numbers[0], useConcat)
 
-private fun Equation.isValidRec(pos: Int, curValue: Long): Boolean {
+private fun Equation.isValidRec(pos: Int, curValue: Long, useConcat: Boolean): Boolean {
     if (pos + 1 !in numbers.indices) {
         return curValue == result
     }
 
-    return isValidRec(pos + 1, curValue * numbers[pos + 1])
-            || isValidRec(pos + 1, curValue + numbers[pos + 1])
+    return isValidRec(pos + 1, curValue * numbers[pos + 1], useConcat)
+            || isValidRec(pos + 1, curValue + numbers[pos + 1], useConcat)
+            || useConcat && isValidRec(pos + 1, curValue.concat(numbers[pos+1]), useConcat)
 }
 
-private fun Long.concatenate(other: Long): Long = "$this$other".toLong()
+private fun Long.concat(other: Long): Long = "$this$other".toLong()
