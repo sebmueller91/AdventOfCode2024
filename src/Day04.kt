@@ -1,6 +1,6 @@
 private const val DAY = 4
 
-private enum class Direction(val vector: Pair<Int, Int>) {
+private enum class Direction4(val vector: Pair<Int, Int>) {
     DOWN(Pair(1, 0)),
     RIGHT(Pair(0, 1)),
     DIAGONAL_RIGHT_DOWN(Pair(1,1)),
@@ -54,15 +54,15 @@ private fun Array<CharArray>.getBoundaryIndices(
     return indices.toList()
 }
 
-private fun Array<CharArray>.traversePath(startCoord: Pair<Int, Int>, direction: Direction): Int {
+private fun Array<CharArray>.traversePath(startCoord: Pair<Int, Int>, direction4: Direction4): Int {
     val extractedElements = mutableListOf<Char>()
     var row = startCoord.first
     var col = startCoord.second
 
     while (row in indices && col in 0 until this[0].size) {
         extractedElements.add(this[row][col])
-        row += direction.vector.first
-        col += direction.vector.second
+        row += direction4.vector.first
+        col += direction4.vector.second
     }
     val extractedString = extractedElements.joinToString("")
 
@@ -72,16 +72,16 @@ private fun Array<CharArray>.traversePath(startCoord: Pair<Int, Int>, direction:
 private fun Array<CharArray>.traverseAll(): Int {
     var count = 0
     getBoundaryIndices(top = true).forEach { index ->
-        count += traversePath(startCoord = index, direction = Direction.DOWN)
+        count += traversePath(startCoord = index, direction4 = Direction4.DOWN)
     }
     getBoundaryIndices(left = true).forEach { index ->
-        count += traversePath(startCoord = index, direction = Direction.RIGHT)
+        count += traversePath(startCoord = index, direction4 = Direction4.RIGHT)
     }
     getBoundaryIndices(left = true, bottom = true).forEach { index ->
-        count += traversePath(startCoord = index, direction = Direction.DIAGONAL_RIGHT_UP)
+        count += traversePath(startCoord = index, direction4 = Direction4.DIAGONAL_RIGHT_UP)
     }
     getBoundaryIndices(left = true, top = true).forEach { index ->
-        count += traversePath(startCoord = index, direction = Direction.DIAGONAL_RIGHT_DOWN)
+        count += traversePath(startCoord = index, direction4 = Direction4.DIAGONAL_RIGHT_DOWN)
     }
 
     return count
