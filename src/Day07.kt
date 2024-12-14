@@ -1,6 +1,6 @@
 private const val DAY = 7
 
-private data class Equation(
+private data class Equation7(
     val result: Long,
     val numbers: List<Long>
 )
@@ -24,15 +24,15 @@ fun main() {
     part2(input).println()
 }
 
-private fun List<String>.parse(): List<Equation> = this.map {
+private fun List<String>.parse(): List<Equation7> = this.map {
     val parts = it.split(":")
     val numbers = parts[1].split(" ")
-    Equation(result = parts[0].trim().toLong(), numbers.filter { it.isNotBlank() }.map { it.trim().toLong() })
+    Equation7(result = parts[0].trim().toLong(), numbers.filter { it.isNotBlank() }.map { it.trim().toLong() })
 }
 
-private fun Equation.isValid(useConcat: Boolean = false): Boolean = isValidRec(0, this.numbers[0], useConcat)
+private fun Equation7.isValid(useConcat: Boolean = false): Boolean = isValidRec(0, this.numbers[0], useConcat)
 
-private fun Equation.isValidRec(pos: Int, curValue: Long, useConcat: Boolean): Boolean {
+private fun Equation7.isValidRec(pos: Int, curValue: Long, useConcat: Boolean): Boolean {
     if (pos + 1 !in numbers.indices) {
         return curValue == result
     }
