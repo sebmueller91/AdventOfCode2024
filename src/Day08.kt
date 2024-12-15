@@ -2,12 +2,12 @@ private const val DAY = 8
 
 private data class Position(
     val isAntinode: Boolean = false,
-    val cell: Cell = Cell.Empty
+    val cell8: Cell8 = Cell8.Empty
 )
 
-private sealed class Cell {
-    data object Empty : Cell()
-    data class Antenna(val frequency: Char) : Cell()
+private sealed class Cell8 {
+    data object Empty : Cell8()
+    data class Antenna(val frequency: Char) : Cell8()
 }
 
 fun main() {
@@ -37,8 +37,8 @@ private fun MutableList<MutableList<Position>>.getAntennasPositions(): Map<Char,
     val map = mutableMapOf<Char, MutableList<Pair<Int, Int>>>()
     for (r in indices) {
         for (c in this[0].indices) {
-            val cell = this[r][c].cell
-            if (cell is Cell.Antenna) {
+            val cell = this[r][c].cell8
+            if (cell is Cell8.Antenna) {
                 map.getOrPut(cell.frequency) { mutableListOf() }
                     .add(Pair(r, c))
             }
@@ -51,9 +51,9 @@ private fun MutableList<MutableList<Position>>.printGrid() {
     for (row in this) {
         for (position in row) {
             when {
-                position.cell is Cell.Antenna && position.isAntinode -> print("!")
+                position.cell8 is Cell8.Antenna && position.isAntinode -> print("!")
                 position.isAntinode -> print("#")
-                position.cell is Cell.Antenna -> print(position.cell.frequency)
+                position.cell8 is Cell8.Antenna -> print(position.cell8.frequency)
                 else -> print(".")
             }
         }
@@ -136,7 +136,7 @@ private fun List<String>.parse(): MutableList<MutableList<Position>> = map {
             }
 
             else -> {
-                Position(cell = Cell.Antenna(char))
+                Position(cell8 = Cell8.Antenna(char))
             }
         }
     }.toMutableList()
