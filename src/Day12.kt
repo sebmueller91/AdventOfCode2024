@@ -1,6 +1,6 @@
 private const val DAY = 12
 
-private enum class Direction(val vector: Pair<Int, Int>) {
+private enum class Direction12(val vector: Pair<Int, Int>) {
     RIGHT(Pair(0, 1)),
     DOWN(Pair(1, 0)),
     LEFT(Pair(0, -1)),
@@ -45,8 +45,8 @@ private fun List<String>.measure(pos: Pair<Int, Int>, visited: Array<BooleanArra
     var area = 1
     var perimeter = 0
 
-    Direction.entries.forEach { direction: Direction ->
-        val neighborPos = pos.plus(direction.vector)
+    Direction12.entries.forEach { direction12: Direction12 ->
+        val neighborPos = pos.plus(direction12.vector)
         val neighbor = getOrNull(neighborPos)
         when {
             neighbor == null -> {
@@ -89,8 +89,8 @@ private fun List<String>.countCorners(pos: Pair<Int, Int>, visited: Array<Boolea
     var area = 1
     var corners = 0
     corners += getNumberCorners(pos)
-    Direction.entries.forEach { direction: Direction ->
-        val neighborPos = pos.plus(direction.vector)
+    Direction12.entries.forEach { direction12: Direction12 ->
+        val neighborPos = pos.plus(direction12.vector)
         val neighbor = getOrNull(neighborPos)
         if (neighbor == this[pos.first][pos.second] && !visited[neighborPos.first][neighborPos.second]) {
             val (a, c) = countCorners(neighborPos, visited)
@@ -107,10 +107,10 @@ private fun List<String>.getNumberCorners(pos: Pair<Int, Int>): Int {
     var corners = 0
 
     listOf(
-        Triple(Direction.UP, Direction.LEFT, pos.plus(Direction.UP.vector).plus(Direction.LEFT.vector)),
-        Triple(Direction.UP, Direction.RIGHT, pos.plus(Direction.UP.vector).plus(Direction.RIGHT.vector)),
-        Triple(Direction.DOWN, Direction.LEFT, pos.plus(Direction.DOWN.vector).plus(Direction.LEFT.vector)),
-        Triple(Direction.DOWN, Direction.RIGHT, pos.plus(Direction.DOWN.vector).plus(Direction.RIGHT.vector))
+        Triple(Direction12.UP, Direction12.LEFT, pos.plus(Direction12.UP.vector).plus(Direction12.LEFT.vector)),
+        Triple(Direction12.UP, Direction12.RIGHT, pos.plus(Direction12.UP.vector).plus(Direction12.RIGHT.vector)),
+        Triple(Direction12.DOWN, Direction12.LEFT, pos.plus(Direction12.DOWN.vector).plus(Direction12.LEFT.vector)),
+        Triple(Direction12.DOWN, Direction12.RIGHT, pos.plus(Direction12.DOWN.vector).plus(Direction12.RIGHT.vector))
     ).forEach { (d1, d2, d3) ->
         val neighbor1 = getOrNull(pos.plus(d1.vector))
         val neighbor2 = getOrNull(pos.plus(d2.vector))
