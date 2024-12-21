@@ -15,10 +15,10 @@ fun main() {
         return input.joinToString().parse().filterExcludedOperations().sumOf { it.a * it.b }
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 161)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 187194524)
     part1(input).println()
     part2(input).println()

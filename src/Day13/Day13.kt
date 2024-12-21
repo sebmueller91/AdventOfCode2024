@@ -25,11 +25,11 @@ fun main() {
             .mapNotNull { it.solve() }.sumOf { it.first * 3 + it.second }
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     part1(testInput).println()
     check(part1(testInput) == 480L)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 37901L)
     part1(input).println()
     part2(input).println()

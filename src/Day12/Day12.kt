@@ -22,11 +22,11 @@ fun main() {
         return input.countCorners().sumOf { it.first * it.second }
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 1930)
     check(part2(testInput) == 1206)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     part1(input).println()
     part2(input).println()
 }

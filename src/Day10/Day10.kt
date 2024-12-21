@@ -15,11 +15,11 @@ fun main() {
         return input.countAllTrailheads2()
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 36)
     check(part2(testInput) == 81)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check (part1(input) == 557)
     part1(input).println()
     part2(input).println()

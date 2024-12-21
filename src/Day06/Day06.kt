@@ -6,10 +6,10 @@ import toDayString
 
 private const val DAY = 6
 
-private sealed class Cell6 {
-    data object Empty : Cell6()
-    data object Obstacle : Cell6()
-    data object Traversed : Cell6()
+private sealed class Cell {
+    data object Empty : Cell()
+    data object Obstacle : Cell()
+    data object Traversed : Cell()
 }
 
 private object DirectionVector {
@@ -51,27 +51,27 @@ fun main() {
         return grid.countObstacleLoops(startPos)
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 41)
     check(part2(testInput) == 6)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 4454)
     part1(input).println()
     part2(input).println()
 }
 
-private fun MutableList<MutableList<Cell6>>.walk(startPos: Pair<Int, Int>): List<MutableList<Cell6>> {
+private fun MutableList<MutableList<Cell>>.walk(startPos: Pair<Int, Int>): List<MutableList<Cell>> {
     var curPos = startPos
 
     while (true) {
-        this[curPos.first][curPos.second] = Cell6.Traversed
+        this[curPos.first][curPos.second] = Cell.Traversed
 
         val nextPos = getNextPos(curPos)
         if (!this.checkIndex(nextPos)) {
             break
         }
-        if (this[nextPos.first][nextPos.second] == Cell6.Obstacle) {
+        if (this[nextPos.first][nextPos.second] == Cell.Obstacle) {
             DirectionVector.turnRight()
 
         } else {
@@ -82,7 +82,7 @@ private fun MutableList<MutableList<Cell6>>.walk(startPos: Pair<Int, Int>): List
     return this
 }
 
-private fun MutableList<MutableList<Cell6>>.isLoop(startPos: Pair<Int, Int>): Boolean {
+private fun MutableList<MutableList<Cell>>.isLoop(startPos: Pair<Int, Int>): Boolean {
     var curPos = startPos
     val hasBeenTraversedInSameDirection =
         MutableList(this.size) { MutableList(this[0].size) { MutableList(4) {false} } }
@@ -97,7 +97,7 @@ private fun MutableList<MutableList<Cell6>>.isLoop(startPos: Pair<Int, Int>): Bo
         if (!this.checkIndex(nextPos)) {
             break
         }
-        if (this[nextPos.first][nextPos.second] == Cell6.Obstacle) {
+        if (this[nextPos.first][nextPos.second] == Cell.Obstacle) {
             DirectionVector.turnRight()
 
         } else {
@@ -108,15 +108,15 @@ private fun MutableList<MutableList<Cell6>>.isLoop(startPos: Pair<Int, Int>): Bo
     return false
 }
 
-private fun MutableList<MutableList<Cell6>>.checkIndex(pos: Pair<Int, Int>): Boolean =
+private fun MutableList<MutableList<Cell>>.checkIndex(pos: Pair<Int, Int>): Boolean =
     pos.first in indices && pos.second in this[0].indices
 
 private fun getNextPos(curPos: Pair<Int, Int>): Pair<Int, Int> =
     Pair(curPos.first + DirectionVector.get().first, curPos.second + DirectionVector.get().second)
 
-private fun List<List<Cell6>>.countTraversedCells(): Int = this.flatten().count { it == Cell6.Traversed }
+private fun List<List<Cell>>.countTraversedCells(): Int = this.flatten().count { it == Cell.Traversed }
 
-private fun List<List<Cell6>>.printGrid(curPos: Pair<Int, Int>? = null) {
+private fun List<List<Cell>>.printGrid(curPos: Pair<Int, Int>? = null) {
     print(" ")
     println(this.indices.joinToString(""))
     this.forEachIndexed { x, row ->
@@ -128,9 +128,9 @@ private fun List<List<Cell6>>.printGrid(curPos: Pair<Int, Int>? = null) {
             } else {
                 print(
                     when (cell) {
-                        Cell6.Empty -> "."
-                        Cell6.Obstacle -> "#"
-                        Cell6.Traversed -> "X"
+                        Cell.Empty -> "."
+                        Cell.Obstacle -> "#"
+                        Cell.Traversed -> "X"
                     }
                 )
             }
@@ -141,22 +141,22 @@ private fun List<List<Cell6>>.printGrid(curPos: Pair<Int, Int>? = null) {
     kotlin.io.println()
 }
 
-private fun List<String>.parse(): Pair<MutableList<MutableList<Cell6>>, Pair<Int, Int>> {
+private fun List<String>.parse(): Pair<MutableList<MutableList<Cell>>, Pair<Int, Int>> {
     lateinit var startPos: Pair<Int, Int>
     val grid = this.mapIndexed { x, row ->
         row.mapIndexed { y, cell ->
             when (cell) {
                 '#' -> {
-                    Cell6.Obstacle
+                    Cell.Obstacle
                 }
 
                 '.' -> {
-                    Cell6.Empty
+                    Cell.Empty
                 }
 
                 else -> {
                     startPos = Pair(x, y)
-                    Cell6.Empty
+                    Cell.Empty
                 }
             }
         }.toMutableList()
@@ -164,18 +164,18 @@ private fun List<String>.parse(): Pair<MutableList<MutableList<Cell6>>, Pair<Int
     return Pair(grid, startPos)
 }
 
-private fun MutableList<MutableList<Cell6>>.countObstacleLoops(startPos: Pair<Int, Int>): Int {
+private fun MutableList<MutableList<Cell>>.countObstacleLoops(startPos: Pair<Int, Int>): Int {
     var count = 0
 
     this.forEachIndexed { x, row ->
         row.forEachIndexed { y, cell ->
-            if (cell is Cell6.Empty) {
+            if (cell is Cell.Empty) {
                 DirectionVector.reset()
-                this[x][y] = Cell6.Obstacle
+                this[x][y] = Cell.Obstacle
                 if (isLoop(startPos)) {
                     count++
                 }
-                this[x][y] = Cell6.Empty
+                this[x][y] = Cell.Empty
             }
         }
     }

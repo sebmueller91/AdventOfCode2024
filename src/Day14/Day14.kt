@@ -20,11 +20,11 @@ fun main() {
         return simulate(input.parse(), 6476, size).mulQuadrants(size)
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     part1(testInput, Pair(11, 7)).println()
     check(part1(testInput, Pair(11, 7)) == 12)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     part1(input, Pair(101, 103)).println()
     part2(input, Pair(101, 103)).println()
 }

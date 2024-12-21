@@ -9,10 +9,10 @@ fun main() {
         return input.size
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 11)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     part1(input).println()
     part2(input).println()
 }

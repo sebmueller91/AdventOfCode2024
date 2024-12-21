@@ -7,13 +7,13 @@ import java.security.InvalidParameterException
 
 private const val DAY = 15
 
-private typealias Grid = MutableList<MutableList<Cell15>>
+private typealias Grid = MutableList<MutableList<Cell>>
 
-private sealed class Cell15 {
-    data object Empty : Cell15()
-    data object Wall : Cell15()
-    data object Box : Cell15()
-    data object Robot : Cell15()
+private sealed class Cell {
+    data object Empty : Cell()
+    data object Wall : Cell()
+    data object Box : Cell()
+    data object Robot : Cell()
 }
 
 private enum class Operation(val direction: Pair<Int, Int>) {
@@ -34,20 +34,20 @@ fun main() {
         return input.size
     }
 
-    val testMiniInput = readInput("Day${DAY.toDayString()}_test_mini")
+    val testMiniInput = DAY.readInput("Day${DAY.toDayString()}_test_mini")
     check(part1(testMiniInput) == 2028)
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 10092)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     part1(input).println()
     part2(input).println()
 }
 
 private fun Grid.score(): Int = indices.sumOf { i ->
     this[i].indices.sumOf { j ->
-        if (this[i][j] is Cell15.Box) {
+        if (this[i][j] is Cell.Box) {
             i * 100 + j
         } else {
             0
@@ -61,9 +61,9 @@ private fun Grid.process(operations: List<Operation>) {
         val robotPos = robotPos()
         findNextFreeCell(robotPos, operation.direction)?.let { freeCell ->
             val neighborCell = robotPos+operation.direction
-            this[freeCell.first][freeCell.second] = Cell15.Box
-            this[neighborCell.first][neighborCell.second] = Cell15.Robot
-            this[robotPos.first][robotPos.second] = Cell15.Empty
+            this[freeCell.first][freeCell.second] = Cell.Box
+            this[neighborCell.first][neighborCell.second] = Cell.Robot
+            this[robotPos.first][robotPos.second] = Cell.Empty
         }
 //        print("Move $operation:")
     }
@@ -72,10 +72,10 @@ private fun Grid.process(operations: List<Operation>) {
 private fun Grid.findNextFreeCell(p: Pair<Int, Int>, d: Pair<Int, Int>): Pair<Int, Int>? {
     var curPos = p
     while (isValid(curPos)) {
-        if (this[curPos.first][curPos.second] is Cell15.Wall) {
+        if (this[curPos.first][curPos.second] is Cell.Wall) {
             return null
         }
-        if (this[curPos.first][curPos.second] is Cell15.Empty) {
+        if (this[curPos.first][curPos.second] is Cell.Empty) {
             return curPos
         }
         curPos += d
@@ -90,7 +90,7 @@ private fun Grid.isValid(p: Pair<Int, Int>) = p.first in indices && p.second in 
 private fun Grid.robotPos(): Pair<Int, Int> {
     indices.forEach { i ->
         this[0].indices.forEach { j ->
-            if (this[i][j] is Cell15.Robot) {
+            if (this[i][j] is Cell.Robot) {
                 return Pair(i, j)
             }
         }
@@ -106,10 +106,10 @@ private fun List<String>.parse(): Pair<Grid, List<Operation>> {
 private fun List<String>.parseGrid(): Grid = map { line ->
     line.map { c ->
         when (c) {
-            'O' -> Cell15.Box
-            '@' -> Cell15.Robot
-            '#' -> Cell15.Wall
-            else -> Cell15.Empty
+            'O' -> Cell.Box
+            '@' -> Cell.Robot
+            '#' -> Cell.Wall
+            else -> Cell.Empty
         }
     }.toMutableList()
 }.toMutableList()
@@ -139,10 +139,10 @@ private fun Grid.print(headerMessage: String) {
         line.forEach { cell ->
             kotlin.io.print(
                 when (cell) {
-                    Cell15.Box -> "O"
-                    Cell15.Empty -> "."
-                    Cell15.Robot -> "@"
-                    Cell15.Wall -> "#"
+                    Cell.Box -> "O"
+                    Cell.Empty -> "."
+                    Cell.Robot -> "@"
+                    Cell.Wall -> "#"
                 }
             )
         }

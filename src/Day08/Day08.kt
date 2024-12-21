@@ -29,10 +29,10 @@ fun main() {
         return grid.fillAntinodes2(antennas).flatten().count { it.isAntinode }
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 14)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 367)
     check(part2(testInput) == 34)
     part1(input).println()

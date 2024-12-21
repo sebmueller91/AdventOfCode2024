@@ -15,11 +15,11 @@ fun main() {
         return input.parse().applyBlinks(75)
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     part1(testInput).println()
     check(part1(testInput) == 55312L)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 183620L)
     part1(input).println()
     part2(input).println()

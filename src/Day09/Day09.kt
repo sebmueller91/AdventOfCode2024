@@ -32,10 +32,10 @@ fun main() {
         return input[0].format().moveFiles2().calcChecksum2()
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 1928L)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 6154342787400)
     check(part2(testInput) == 2858L)
     part1(input).println()

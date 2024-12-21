@@ -24,10 +24,10 @@ fun main() {
         return updates.filterByRules(rules, filterForValids = false).map { it.sortByRules(rules) }.sumOf { it.getMidValue() }
     }
 
-    val testInput = readInput("Day${DAY.toDayString()}_test")
+    val testInput = DAY.readInput("Day${DAY.toDayString()}_test")
     check(part1(testInput) == 143)
 
-    val input = readInput("Day${DAY.toDayString()}")
+    val input = DAY.readInput("Day${DAY.toDayString()}")
     check(part1(input) == 6267)
     part1(input).println()
     part2(input).println()
