@@ -1,3 +1,9 @@
+package Day03
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 3
 
 fun main() {

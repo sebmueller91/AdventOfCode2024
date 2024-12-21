@@ -1,3 +1,9 @@
+package Day12
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 12
 
 private enum class Direction12(val vector: Pair<Int, Int>) {

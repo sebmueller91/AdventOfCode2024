@@ -1,3 +1,9 @@
+package Day07
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 7
 
 private data class Equation7(

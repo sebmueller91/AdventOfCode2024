@@ -1,3 +1,9 @@
+package Day08
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 8
 
 private data class Position(

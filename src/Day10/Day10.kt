@@ -1,3 +1,9 @@
+package Day10
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 10
 
 fun main() {

@@ -1,3 +1,9 @@
+package Day05
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 5
 
 private data class Rule(

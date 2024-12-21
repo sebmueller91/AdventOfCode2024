@@ -1,3 +1,8 @@
+package Day16
+
+import println
+import readInput
+import toDayString
 import java.security.InvalidParameterException
 import kotlin.math.min
 

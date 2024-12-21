@@ -1,3 +1,9 @@
+package Day06
+
+import println
+import readInput
+import toDayString
+
 private const val DAY = 6
 
 private sealed class Cell6 {
